@@ -1,0 +1,50 @@
+{
+    "catalog": {
+        "id": "example",
+        "free": true,
+        "public": true,
+        "featured": false,
+        "created": "2023-05-23T13:40:46.000Z",
+        "updated": "2023-05-23T13:50:33.000Z",
+        "active": true,
+        "hidden": false,
+        "publiclyOrderable": false,
+        "mandatory": false,
+        "links": {
+            "items": "/catalogs/example/items",
+            "catalogSets": "/catalogs/example/catalogSets",
+            "allItems": "/catalogs/example/allItems",
+            "components": "/catalogs/example/components",
+            "materials": "/catalogs/example/materials",
+            "textures": "/catalogs/example/textures",
+            "allTags": "/catalogs/example/allTags",
+            "rootTags": "/catalogs/example/rootTags",
+            "retailers": "/catalogs/example/retailers",
+            "retailerInfos": "/catalogs/example/retailerInfos",
+            "visibleToTenants": "/catalogs/example/visibleToTenants",
+            "visibleToUsers": "/catalogs/example/visibleToUsers",
+            "meshes": "/catalogs/example/meshes",
+            "drafts": "/catalogs/example/drafts",
+            "catalogElementAdditionalInfos": "/catalogs/example/catalogElementAdditionalInfos"
+        },
+        "language": "en",
+        "name": "Example Catalogue",
+        "label": "Example Catalogue",
+        "orderable": false,
+        "requestable": false,
+        "retailPriceAllowed": false,
+        "hiddenByUser": false,
+        "hiddenByTenant": true,
+        "tenantIsOwner": false,
+        "purchased": false,
+        "tags": [
+            "example_root"
+        ],
+        "rootTags": [
+            "example_root"
+        ],
+        "tenant": 14,
+        "branded": true,
+        "shownInOverview": false
+    }
+}

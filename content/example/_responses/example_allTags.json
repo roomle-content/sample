@@ -1,0 +1,24 @@
+{
+    "tags": [
+        {
+            "id": "example_root",
+            "global": false,
+            "created": "2023-05-23T13:40:46.000Z",
+            "updated": "2023-05-23T13:40:46.000Z",
+            "links": {
+                "items": "/tags/example_root/items",
+                "materials": "/tags/example_root/materials",
+                "parentTags": "/tags/example_root/parentTags"
+            },
+            "catalog": "example",
+            "label": "Example Catalogue",
+            "language": "en",
+            "items": [],
+            "hidden": false
+        }
+    ],
+    "meta": {
+        "total": 1,
+        "serverTime": "2023-05-25T05:53:33.068Z"
+    }
+}

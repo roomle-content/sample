@@ -1,0 +1,62 @@
+{
+    "id": "example:simpletable",
+    "labels": {
+        "en": "Elliptical table, 160 x 140 cm"
+    },
+    "parameters": [],
+    "onUpdate": "
+        if (isnull(inited)) {
+            inited = true;
+        }
+    ",
+    "geometry": "
+        /* define dimensions */
+        tabletop_width = 1600;
+        tabletop_depth = 1400;
+        tabletop_thickness = 25;
+        table_height = 640;
+        leg_diameter = 50;
+        base_diameter = 900;
+        base_height = 50;
+
+        /* tabletop */
+        AddSphere(Vector3f{tabletop_width / 2, tabletop_depth / 2, 100});
+         SetObjSurface('example:wood_chestnut');
+
+        /* cut sphere to plane */
+        AddCube(Vector3f{tabletop_width, tabletop_depth, 100}, Vector2f{1, 1}, 90, Vector2f{0, 0}, 2);
+         MoveMatrixBy(Vector3f{ -tabletop_width / 2, -1400 / 2, tabletop_thickness / 2});
+        MinusOperator();
+        AddCube(Vector3f{tabletop_width, tabletop_depth, 100}, Vector2f{1, 1}, 90, Vector2f{0, 0}, 2);
+         MoveMatrixBy(Vector3f{ -tabletop_width / 2, -tabletop_depth / 2, -100 - tabletop_thickness / 2});
+        MinusOperator();
+
+        /* tabletop result */
+         MoveMatrixBy(Vector3f{0, 0, table_height - tabletop_thickness / 2});
+
+        /* base */
+        AddSphere(Vector3f{base_height / 2, base_diameter / 2, base_diameter / 2}, Vector2f{1, 1}, 0, Vector2f{0, 0});
+         SetObjSurface('example:metallic_darkgrey');
+         RotateMatrixBy(Vector3f{0, 1, 0}, Vector3f{0, 0, 0}, 90);
+        /* cut lower part of the sphere to plane */
+        AddPlainCube(Vector3f{base_diameter, base_diameter, 100});
+         MoveMatrixBy(Vector3f{ -base_diameter / 2, -base_diameter / 2, -100});
+        MinusOperator();
+
+        /* leg */
+        AddCylinder(leg_diameter / 2, leg_diameter / 2, table_height - tabletop_thickness, 16);
+         SetObjSurface('example:metallic_darkgrey');
+
+        /* leg bottom bevel */
+        AddCylinder(leg_diameter, leg_diameter / 2, base_height + 20, 16);
+         SetObjSurface('example:metallic_darkgrey');
+        AddCylinder(leg_diameter * 2, leg_diameter / 2, base_height + 5, 16);
+         SetObjSurface('example:metallic_darkgrey');
+
+        /* leg to tabletop mount */
+        AddCylinder(base_diameter / 5, base_diameter / 4, tabletop_thickness / 2, 16);
+         SetObjSurface('example:metallic_darkgrey');
+         MoveMatrixBy(Vector3f{0, 0, table_height - tabletop_thickness - tabletop_thickness / 2});
+    ",
+    "articleNr": "'ELT-16-14'"
+}

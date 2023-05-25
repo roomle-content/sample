@@ -1,0 +1,213 @@
+{
+    "materials": [
+        {
+            "externalIdentifier": "wood_oak",
+            "version": 0,
+            "id": "example:wood_oak",
+            "shading": {
+                "alpha": 1,
+                "transmission": 0,
+                "transmissionIOR": 0,
+                "roughness": 1,
+                "metallic": 0,
+                "basecolor": {
+                    "r": 1,
+                    "g": 1,
+                    "b": 1
+                },
+                "doubleSided": false
+            },
+            "properties": {},
+            "thumbnail": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38086/image.png?marker=1684937428",
+            "textures": [
+                38086,
+                38087
+            ],
+            "label": "Oak",
+            "language": "en",
+            "catalog": "example",
+            "links": {
+                "textures": "/materials/example:wood_oak/textures"
+            },
+            "hidden": false,
+            "visibilityStatus": 0,
+            "active": true,
+            "updated": "2023-05-24T14:10:28.000Z",
+            "created": "2023-05-24T14:10:28.000Z"
+        },
+        {
+            "externalIdentifier": "wood_chestnut",
+            "version": 0,
+            "id": "example:wood_chestnut",
+            "shading": {
+                "alpha": 1,
+                "transmission": 0,
+                "transmissionIOR": 0,
+                "roughness": 1,
+                "metallic": 0,
+                "basecolor": {
+                    "r": 1,
+                    "g": 1,
+                    "b": 1
+                },
+                "doubleSided": false
+            },
+            "properties": {},
+            "thumbnail": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38088/image.png?marker=1684937498",
+            "textures": [
+                38088,
+                38089
+            ],
+            "label": "Chestnut",
+            "language": "en",
+            "catalog": "example",
+            "links": {
+                "textures": "/materials/example:wood_chestnut/textures"
+            },
+            "hidden": false,
+            "visibilityStatus": 0,
+            "active": true,
+            "updated": "2023-05-24T14:11:38.000Z",
+            "created": "2023-05-24T14:11:38.000Z"
+        },
+        {
+            "externalIdentifier": "metallic_silver",
+            "version": 0,
+            "id": "example:metallic_silver",
+            "shading": {
+                "alpha": 1,
+                "transmission": 0,
+                "transmissionIOR": 0,
+                "roughness": 1,
+                "metallic": 0,
+                "basecolor": {
+                    "r": 1,
+                    "g": 1,
+                    "b": 1
+                },
+                "doubleSided": false
+            },
+            "properties": {},
+            "textures": [
+                38090
+            ],
+            "label": "Silver",
+            "language": "en",
+            "catalog": "example",
+            "links": {
+                "textures": "/materials/example:metallic_silver/textures"
+            },
+            "hidden": false,
+            "visibilityStatus": 0,
+            "active": true,
+            "updated": "2023-05-24T14:14:01.000Z",
+            "created": "2023-05-24T14:14:01.000Z"
+        },
+        {
+            "externalIdentifier": "metallic_darkgrey",
+            "version": 0,
+            "id": "example:metallic_darkgrey",
+            "shading": {
+                "alpha": 1,
+                "transmission": 0,
+                "transmissionIOR": 0,
+                "roughness": 1,
+                "metallic": 0,
+                "basecolor": {
+                    "r": 0.3294117647058823,
+                    "g": 0.3294117647058823,
+                    "b": 0.3294117647058823
+                },
+                "doubleSided": false
+            },
+            "textures": [
+                38091
+            ],
+            "label": "Dark Grey",
+            "language": "en",
+            "catalog": "example",
+            "links": {
+                "textures": "/materials/example:metallic_darkgrey/textures"
+            },
+            "hidden": false,
+            "visibilityStatus": 0,
+            "active": true,
+            "updated": "2023-05-24T14:16:27.000Z",
+            "created": "2023-05-24T14:15:23.000Z"
+        },
+        {
+            "externalIdentifier": "fabric_blue",
+            "version": 0,
+            "id": "example:fabric_blue",
+            "shading": {
+                "alpha": 1,
+                "transmission": 0,
+                "transmissionIOR": 0,
+                "roughness": 1,
+                "metallic": 0,
+                "basecolor": {
+                    "r": 1,
+                    "g": 1,
+                    "b": 1
+                },
+                "doubleSided": false
+            },
+            "properties": {},
+            "thumbnail": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38092/image.png?marker=1684937838",
+            "textures": [
+                38092,
+                38093
+            ],
+            "label": "Blue",
+            "language": "en",
+            "catalog": "example",
+            "links": {
+                "textures": "/materials/example:fabric_blue/textures"
+            },
+            "hidden": false,
+            "visibilityStatus": 0,
+            "active": true,
+            "updated": "2023-05-24T14:17:18.000Z",
+            "created": "2023-05-24T14:17:18.000Z"
+        },
+        {
+            "externalIdentifier": "fabric_beige",
+            "version": 0,
+            "id": "example:fabric_beige",
+            "shading": {
+                "alpha": 1,
+                "transmission": 0,
+                "transmissionIOR": 0,
+                "roughness": 1,
+                "metallic": 0,
+                "basecolor": {
+                    "r": 1,
+                    "g": 1,
+                    "b": 1
+                },
+                "doubleSided": false
+            },
+            "properties": {},
+            "thumbnail": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38094/image.png?marker=1684937888",
+            "textures": [
+                38094,
+                38095
+            ],
+            "label": "Beige",
+            "language": "en",
+            "catalog": "example",
+            "links": {
+                "textures": "/materials/example:fabric_beige/textures"
+            },
+            "hidden": false,
+            "visibilityStatus": 0,
+            "active": true,
+            "updated": "2023-05-24T14:18:08.000Z",
+            "created": "2023-05-24T14:18:08.000Z"
+        }
+    ],
+    "meta": {
+        "total": 6,
+        "serverTime": "2023-05-25T05:53:33.093Z"
+    }
+}

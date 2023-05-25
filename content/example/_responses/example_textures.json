@@ -1,0 +1,218 @@
+{
+    "textures": [
+        {
+            "id": 38094,
+            "material": "example:fabric_beige",
+            "mapping": "RGB",
+            "image": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38094/image.png?marker=1684937898",
+            "url": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38094/image.png?marker=1684937898",
+            "height": 0,
+            "width": 0,
+            "mmHeight": 200,
+            "mmWidth": 200,
+            "qualityLevel": 0,
+            "tileable": true,
+            "definition": {
+                "height": 0,
+                "width": 0,
+                "mmHeight": 200,
+                "mmWidth": 200,
+                "tileable": true,
+                "mapping": "RGB"
+            }
+        },
+        {
+            "id": 38095,
+            "material": "example:fabric_beige",
+            "mapping": "XYZ",
+            "image": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38095/image.png?marker=1684937909",
+            "url": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38095/image.png?marker=1684937909",
+            "height": 0,
+            "width": 0,
+            "mmHeight": 200,
+            "mmWidth": 200,
+            "qualityLevel": 0,
+            "tileable": true,
+            "definition": {
+                "height": 0,
+                "width": 0,
+                "mmHeight": 200,
+                "mmWidth": 200,
+                "tileable": true,
+                "mapping": "XYZ"
+            }
+        },
+        {
+            "id": 38092,
+            "material": "example:fabric_blue",
+            "mapping": "RGB",
+            "image": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38092/image.png?marker=1684937853",
+            "url": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38092/image.png?marker=1684937853",
+            "height": 0,
+            "width": 0,
+            "mmHeight": 200,
+            "mmWidth": 200,
+            "qualityLevel": 0,
+            "tileable": true,
+            "definition": {
+                "height": 0,
+                "width": 0,
+                "mmHeight": 200,
+                "mmWidth": 200,
+                "tileable": true,
+                "mapping": "RGB"
+            }
+        },
+        {
+            "id": 38093,
+            "material": "example:fabric_blue",
+            "mapping": "XYZ",
+            "image": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38093/image.png?marker=1684937864",
+            "url": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38093/image.png?marker=1684937864",
+            "height": 0,
+            "width": 0,
+            "mmHeight": 200,
+            "mmWidth": 200,
+            "qualityLevel": 0,
+            "tileable": true,
+            "definition": {
+                "height": 0,
+                "width": 0,
+                "mmHeight": 200,
+                "mmWidth": 200,
+                "tileable": true,
+                "mapping": "XYZ"
+            }
+        },
+        {
+            "id": 38091,
+            "material": "example:metallic_darkgrey",
+            "mapping": "XYZ",
+            "image": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38091/image.png?marker=1684937740",
+            "url": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38091/image.png?marker=1684937740",
+            "height": 0,
+            "width": 0,
+            "mmHeight": 50,
+            "mmWidth": 50,
+            "qualityLevel": 0,
+            "tileable": true,
+            "definition": {
+                "height": 0,
+                "width": 0,
+                "mmHeight": 50,
+                "mmWidth": 50,
+                "tileable": true,
+                "mapping": "XYZ"
+            }
+        },
+        {
+            "id": 38090,
+            "material": "example:metallic_silver",
+            "mapping": "XYZ",
+            "image": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38090/image.png?marker=1684937678",
+            "url": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38090/image.png?marker=1684937678",
+            "height": 0,
+            "width": 0,
+            "mmHeight": 50,
+            "mmWidth": 50,
+            "qualityLevel": 0,
+            "tileable": true,
+            "definition": {
+                "height": 0,
+                "width": 0,
+                "mmHeight": 50,
+                "mmWidth": 50,
+                "tileable": true,
+                "mapping": "XYZ"
+            }
+        },
+        {
+            "id": 38088,
+            "material": "example:wood_chestnut",
+            "mapping": "RGB",
+            "image": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38088/image.png?marker=1684937516",
+            "url": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38088/image.png?marker=1684937516",
+            "height": 0,
+            "width": 0,
+            "mmHeight": 500,
+            "mmWidth": 500,
+            "qualityLevel": 0,
+            "tileable": true,
+            "definition": {
+                "height": 0,
+                "width": 0,
+                "mmHeight": 500,
+                "mmWidth": 500,
+                "tileable": true,
+                "mapping": "RGB"
+            }
+        },
+        {
+            "id": 38089,
+            "material": "example:wood_chestnut",
+            "mapping": "ORM",
+            "image": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38089/image.png?marker=1684937527",
+            "url": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38089/image.png?marker=1684937527",
+            "height": 0,
+            "width": 0,
+            "mmHeight": 500,
+            "mmWidth": 500,
+            "qualityLevel": 0,
+            "tileable": true,
+            "definition": {
+                "height": 0,
+                "width": 0,
+                "mmHeight": 500,
+                "mmWidth": 500,
+                "tileable": true,
+                "mapping": "ORM"
+            }
+        },
+        {
+            "id": 38086,
+            "material": "example:wood_oak",
+            "mapping": "RGB",
+            "image": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38086/image.png?marker=1684937439",
+            "url": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38086/image.png?marker=1684937439",
+            "height": 0,
+            "width": 0,
+            "mmHeight": 500,
+            "mmWidth": 500,
+            "qualityLevel": 0,
+            "tileable": true,
+            "definition": {
+                "height": 0,
+                "width": 0,
+                "mmHeight": 500,
+                "mmWidth": 500,
+                "tileable": true,
+                "mapping": "RGB"
+            }
+        },
+        {
+            "id": 38087,
+            "material": "example:wood_oak",
+            "mapping": "ORM",
+            "image": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38087/image.png?marker=1684937454",
+            "url": "https://catalog.roomle.com/de94dfb1-994b-4a4e-8183-38b21094b65a/textures/38087/image.png?marker=1684937454",
+            "height": 0,
+            "width": 0,
+            "mmHeight": 500,
+            "mmWidth": 500,
+            "qualityLevel": 0,
+            "tileable": true,
+            "definition": {
+                "height": 0,
+                "width": 0,
+                "mmHeight": 500,
+                "mmWidth": 500,
+                "tileable": true,
+                "mapping": "ORM"
+            }
+        }
+    ],
+    "meta": {
+        "total": 10,
+        "serverTime": "2023-05-25T05:53:33.068Z"
+    }
+}

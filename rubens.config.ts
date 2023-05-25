@@ -14,9 +14,9 @@ const config = {
       // },
 
       // keep camera position between reloads
-      //debug: true,
+      debug: true,
       // show FPS counter and performance statistics
-      //stats: true,
+      stats: true,
 
       // override the configurator server url
       overrideServerUrl: 'https://www.roomle.com/t/cp',
@@ -38,10 +38,10 @@ const config = {
      */
     componentDefinition(component) {
       //disableParameterGroups(component);
-      //applyKeysToLabels(component);
+      applyKeysToLabels(component);
       //applyKeysToLabelsForIDM(component);
-      //concatenateDebugGeometry(component);
-      //injectDebugText(component, 50, 50);
+      concatenateDebugGeometry(component);
+      injectDebugText(component, 50, 50);
     }
   },
 
