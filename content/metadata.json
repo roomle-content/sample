@@ -1,4 +1,18 @@
 {
     "tenant": "roomle_viewr",
-    "catalogToTenantOverride": {}
+    "catalogToTenantOverride": {},
+    "projects": [
+        {
+            "rootComponentIds": [
+                "example:wardrobe_master"
+            ],
+            "name": "Example Wardrobe"
+        },
+        {
+            "rootComponentIds": [
+                "example:simpletable"
+            ],
+            "name": "Simple Table"
+        }
+    ]
 }
