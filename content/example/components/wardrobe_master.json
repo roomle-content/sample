@@ -1,0 +1,397 @@
+{
+    "id": "example:wardrobe_master",
+    "parameters": [
+        {
+            "key": "width",
+            "type": "Decimal",
+            "labels": {
+                "en": "Width"
+            },
+            "unitType": "length",
+            "visible": true,
+            "validValues": [
+                500,
+                750,
+                1000
+            ]
+        },
+        {
+            "key": "depth",
+            "type": "Decimal",
+            "labels": {
+                "en": "Depth"
+            },
+            "unitType": "length",
+            "visible": true,
+            "validValues": [
+                350,
+                580
+            ]
+        },
+        {
+            "key": "height",
+            "type": "Decimal",
+            "labels": {
+                "en": "Height"
+            },
+            "unitType": "length",
+            "visible": true,
+            "validValues": [
+                2010,
+                2360
+            ]
+        },
+        {
+            "key": "material",
+            "type": "Material",
+            "labels": {
+                "en": "Material"
+            },
+            "visible": true,
+            "validValues": [
+                "isdt:wood_oak",
+                "isdt:wood_chstnut",
+                "isdt:wood_oak_stained"
+            ]
+        }
+    ],
+    "onUpdate": "
+        if (isnull(inited)) {
+            inited = true;
+
+            /** material thickness */
+            wallThickness = 19;
+            bevelWidth = 1;
+            /** top reference edge to top shelf surface */
+            shelfOffsetVertical = 2;
+            /** front reference edge to horizontal shelf front surface */
+            shelfOffsetDepth = 5;
+            /** back reference edge to front edge of back plate = rear edge of internalBox */
+            backplateOffset = 20;
+            backplateThickness = 5;
+            /** floor to bottom surface of floor shelf */
+            plinthHeight = 65;
+            /** plinth front surface to reference box */
+            plinthOffsetY = 12;
+            /** plinth bottom surface to floor */
+            plinthOffsetZ = 5;
+            /** internal pin array spacing */
+            rangeStepZ = 50;
+
+            /** Docking collision prevention array. 
+                @doc occupations Is an array of integers, where each integer represents one docking point of the range. Its values are FREE, SHADOW or OCCUPIED.
+                @doc FREE Indicates that the docking point of the range is free and can be used for docking. Should be 0, so that it is falsy.
+                @doc SHADOW Indicates, that there is nothing docked, but a near docking point is occupied with an accessory that requires more space. Therefore, the point should not be used.
+                @doc OCCUPIED Indicates, that there is an accessory docked at the point and therefore it is used.
+                @doc UNAVAILABLE Indicates invalid docking point, i.e. above the ceiling of the wardrobe.
+                All other values are an error. Therefore we do not set, but increment the values in order to be able to detect that the error is present.
+
+            */
+            FREE = 0;
+            SHADOW = 1;
+            OCCUPIED = 100;
+            UNAVAILABLE = -1;
+            occupations = [FREE];
+
+            // initialize the occupations array; let it be big enough, so that we don't have to check against the array maximum index
+            // maximum possible wardrobe height
+            _.maxHeight = 2360;
+            // maximum possible accessory height
+            _.maxAccessoryHeight = 1000;
+            _.occupations_maxIndex = _.maxHeight + _.maxAccessoryHeight;
+            for (_.i = 0; _.i < _.occupations_maxIndex; _.i = _.i + rangeStepZ) {
+                pushBack(occupations, FREE);
+            }
+            // initialize the array by making a copy of the array with the maximum possible height
+            /** Array for every docking point indicating amount of FREE docking points above this docking point until an occupied, shaded or last docking point is met. */
+            occupations_spaceAbove = occupations;
+        }
+
+        /** Internal box is the free space inside the wardrobe (outer box - wall/floor/ceiling thickness) */
+        internalBoxSize = Vector3f{
+            width - 2 * wallThickness,
+            depth - backplateOffset,
+            height - 2 * wallThickness - plinthHeight - shelfOffsetVertical
+        };
+        /** Internal box is the free space inside the wardrobe (outer box - wall/floor/ceiling thickness) */
+        internalBoxPosition = Vector3f{
+            wallThickness,
+            backplateOffset,
+            plinthHeight + wallThickness
+        };
+
+        _.lastOccupiedIndex = 0;
+        for (_.i = length(occupations_spaceAbove) - 1; _.i >= 0; _.i = _.i - 1) {
+            _.position = zFromVector(internalBoxPosition) + _.i * rangeStepZ;
+            _.occupation = get(occupations, _.i);
+            if (_.position > zFromVector(internalBoxPosition) + zFromVector(internalBoxSize)) {
+                set(occupations_spaceAbove, _.i, UNAVAILABLE);
+                _.lastOccupiedIndex = _.i;
+            }
+            else if (_.occupation == OCCUPIED) {
+                set(occupations_spaceAbove, _.i, _.lastOccupiedIndex - _.i);
+                _.lastOccupiedIndex = _.i;
+            }
+            else {
+                set(occupations_spaceAbove, _.i, _.lastOccupiedIndex - _.i);
+            }
+        }
+    ",
+    "geometry": "
+        // left wall
+        AddCube(
+            Vector3f{
+                wallThickness,
+                depth,
+                height
+            },
+            bevelWidth = self.bevelWidth,
+            material = self.material
+        );
+
+        // right wall
+        Copy();
+         MoveMatrixBy(Vector3f{width - wallThickness, 0, 0});
+         MoveUvMatrixBy(Vector2f{400, 0});
+
+        // floor shelf
+        AddCube(
+            Vector3f{
+                width - 2 * wallThickness,
+                depth - shelfOffsetDepth - backplateOffset,
+                wallThickness
+            },
+            uvRotation = 90,
+            bevelWidth = self.bevelWidth,
+            material = self.material
+        );
+         MoveMatrixBy(Vector3f{xFromVector(internalBoxPosition), yFromVector(internalBoxPosition), plinthHeight});
+
+        // plinth
+        AddCube(
+            Vector3f{
+                width - 2 * wallThickness,
+                wallThickness,
+                plinthHeight - plinthOffsetZ
+            },
+            uvRotation = 90,
+            bevelWidth = self.bevelWidth,
+            material = self.material
+        );
+         MoveMatrixBy(Vector3f{xFromVector(internalBoxPosition), depth - plinthOffsetY - wallThickness, plinthOffsetZ});
+
+        // ceiling shelf
+        AddCube(
+            Vector3f{
+                width - 2 * wallThickness,
+                depth - 2 * shelfOffsetDepth,
+                wallThickness
+            },
+            uvRotation = 90,
+            uvOffset = Vector2f{500, 200},
+            bevelWidth = self.bevelWidth,
+            material = self.material
+        );
+         MoveMatrixBy(Vector3f{
+                xFromVector(internalBoxPosition),
+                shelfOffsetDepth,
+                height - wallThickness - shelfOffsetVertical
+        });
+
+        // back plate
+        AddCube(
+            Vector3f{
+                xFromVector(internalBoxSize),
+                backplateThickness,
+                zFromVector(internalBoxSize) + wallThickness
+            },
+            material = 'ral_color:7003',
+            materialFront = material
+        );
+         MoveMatrixBy(Vector3f{
+                xFromVector(internalBoxPosition),
+                backplateOffset - backplateThickness,
+                zFromVector(internalBoxPosition) - wallThickness
+        });
+    ",
+    "debugGeometry": "
+        for (i = 0; i <= (height - zFromVector(internalBoxPosition)) / rangeStepZ; i = i + 1) {
+            occupationValue = get(occupations, i);
+            AddSphere(Vector3f{rangeStepZ / 2, rangeStepZ / 2, rangeStepZ / 2});
+             MoveMatrixBy(Vector3f{ -rangeStepZ, depth - rangeStepZ / 2, i * rangeStepZ + zFromVector(internalBoxPosition)});
+            debugPointColor = 'isdt:red';
+            if (occupationValue == FREE) {
+                debugPointColor = 'isdt:green';
+            }
+            else if (occupationValue == SHADOW) {
+                debugPointColor = 'isdt:blue';
+            }
+            else if (occupationValue == OCCUPIED) {
+                debugPointColor = 'isdt:yellow';
+            }
+             SetObjSurface(debugPointColor);
+
+            for (j = 0; j < get(occupations_spaceAbove, i); j = j + 1) {
+                AddPlainCube(Vector3f{20, 20, 20});
+                 MoveMatrixBy(Vector3f{width + 20 + j * 50, depth - 20, i * rangeStepZ + zFromVector(internalBoxPosition)});
+                if ((j + 1) % 5 == 0) { SetObjSurface('isdt:black'); } else { SetObjSurface(debugPointColor); }
+            }
+        }
+    ",
+    "parentDockings": {
+        "ranges": [
+            {
+                "mask": "'FRAME_TO_ACCESSORY'",
+                "position": "
+                    {
+                        xFromVector(internalBoxPosition),
+                        yFromVector(internalBoxPosition),
+                        zFromVector(internalBoxPosition)
+                    }
+                ",
+                "stepEnd": "
+                    {
+                        xFromVector(internalBoxPosition),
+                        yFromVector(internalBoxPosition),
+                        zFromVector(internalBoxPosition) + zFromVector(internalBoxSize)
+                    }
+                ",
+                "stepZ": "rangeStepZ",
+                "condition": "
+                    // disallow if position is lower than the minimum dock position
+                    if (ifnull(other.dock_minimumAbsolutePositionZ, 0) > zFromVector(connection.position)) {
+                        return false;
+                    }
+                    if (ifnull(other.dock_minimumRelativePositionZ, 0) > (zFromVector(connection.position) - zFromVector(internalBoxPosition))) {
+                        return false;
+                    }
+                    // check for shaded docking point; do not check against occupied, it needs to stay valid so that it doesn't undock an existing accessory
+                    if (get(self.occupations, connection.index) == SHADOW) {
+                        return false;
+                    }
+                    // check if space above is available
+                    _.spaceAbove = get(self.occupations_spaceAbove, connection.index) * rangeStepZ;
+                    if (ifnull(other.dock_minimumSpaceAbove, 0) > _.spaceAbove) {
+                        return false;
+                    }
+                    return true;
+                ",
+                "assignmentsOnUpdate": {
+                    "internalFrameWidth": "xFromVector(internalBoxSize)",
+                    "internalFrameDepth": "yFromVector(internalBoxSize)"
+                },
+                "assignmentScripts": {
+                    "onDock": "
+                        set(self.occupations, connection.index, get(self.occupations, connection.index) + OCCUPIED);
+                        for (_.i = connection.index + 1; _.i < connection.index + ceil(other.dock_minimumSpaceAbove / rangeStepZ, 0); _.i = _.i + 1) {
+                            set(self.occupations, _.i, get(self.occupations, _.i) + SHADOW);
+                        }
+                    ",
+                    "onUnDock": "
+                        set(self.occupations, connection.index, get(self.occupations, connection.index) - OCCUPIED);
+                        for (_.i = connection.index + 1; _.i < connection.index + ceil(other.dock_minimumSpaceAbove / rangeStepZ, 0); _.i = _.i + 1) {
+                            set(self.occupations, _.i, get(self.occupations, _.i) - SHADOW);
+                        }
+                    "
+                }
+            }
+        ]
+    },
+    "possibleChildren": [
+        {
+            "componentId": "example:wardrobe_accessory",
+            "condition": "false"
+        },
+        {
+            "itemId": "example:wardrobe_accessory_shelf",
+            "condition": "true"
+        },
+        {
+            "itemId": "example:wardrobe_accessory_internaldrawer",
+            "condition": "true"
+        },
+        {
+            "itemId": "example:wardrobe_accessory_clothesrod",
+            "condition": "true"
+        }
+    ],
+    "articleNr": "
+        internal_articleNumber = 'wardrobe_master-' |
+        string(width / 10, 0) |
+        '-' |
+        string(depth / 10, 0) |
+        '-' |
+        string(height / 10, 0) |
+        '-' |
+        getData('colorCode', material);
+
+        articleNr = getDataWithDefault('articleNumbers', internal_articleNumber, 'UNDEFINED ' | internal_articleNumber)
+    ",
+    "label": "
+        'Wardrobe Frame ' |
+        string(width / 10, 0) |
+        'x' |
+        string(depth / 10, 0) |
+        'x' |
+        string(height / 10, 0) |
+        ' (' |
+        getData('translations', material, 'en') |
+        ')'
+    ",
+    "data": {
+        "colorCode": {
+            "isdt:wood_oak": "WOA",
+            "isdt:wood_chstnut": "WCH",
+            "isdt:wood_oak_stained": "WOS"
+        },
+        "translations": {
+            "isdt:wood_oak": {
+                "en": "Oak"
+            },
+            "isdt:wood_chstnut": {
+                "en": "Chestnut"
+            },
+            "isdt:wood_oak_stained": {
+                "en": "Stained Oak"
+            }
+        },
+        "articleNumbers": {
+            "wardrobe_master-100-35-201-WOA": "4638.3363.32793",
+            "wardrobe_master-100-35-201-WCH": "4638.3363.32794",
+            "wardrobe_master-100-35-201-WOS": "4638.3363.32795",
+            "wardrobe_master-100-35-236-WOA - err": "4638.3363.32796",
+            "wardrobe_master-100-35-236-WCH - err": "4638.3363.32797",
+            "wardrobe_master-100-35-236-WOS - err": "4638.3363.32798",
+            "wardrobe_master-100-58-201-WOA": "4638.3363.32799",
+            "wardrobe_master-100-58-201-WCH": "4638.3363.32800",
+            "wardrobe_master-100-58-201-WOS": "4638.3363.32801",
+            "wardrobe_master-100-58-236-WOA - err": "4638.3363.32802",
+            "wardrobe_master-100-58-236-WCH - err": "4638.3363.32803",
+            "wardrobe_master-100-58-236-WOS - err": "4638.3363.32804",
+            "wardrobe_master-75-35-201-WOA": "4638.3363.32805",
+            "wardrobe_master-75-35-201-WCH": "4638.3363.32806",
+            "wardrobe_master-75-35-201-WOS": "4638.3363.32807",
+            "wardrobe_master-75-35-236-WOA - err": "4638.3363.32808",
+            "wardrobe_master-75-35-236-WCH - err": "4638.3363.32809",
+            "wardrobe_master-75-35-236-WOS - err": "4638.3363.32810",
+            "wardrobe_master-75-58-201-WOA": "4638.3363.32811",
+            "wardrobe_master-75-58-201-WCH": "4638.3363.32812",
+            "wardrobe_master-75-58-201-WOS": "4638.3363.32813",
+            "wardrobe_master-75-58-236-WOA - err": "4638.3363.32814",
+            "wardrobe_master-75-58-236-WCH - err": "4638.3363.32815",
+            "wardrobe_master-75-58-236-WOS - err": "4638.3363.32816",
+            "wardrobe_master-50-35-201-WOA": "4638.3363.32817",
+            "wardrobe_master-50-35-201-WCH": "4638.3363.32818",
+            "wardrobe_master-50-35-201-WOS": "4638.3363.32819",
+            "wardrobe_master-50-35-236-WOA - err": "4638.3363.32820",
+            "wardrobe_master-50-35-236-WCH - err": "4638.3363.32821",
+            "wardrobe_master-50-35-236-WOS - err": "4638.3363.32822",
+            "wardrobe_master-50-58-201-WOA": "4638.3363.32823",
+            "wardrobe_master-50-58-201-WCH": "4638.3363.32824",
+            "wardrobe_master-50-58-201-WOS": "4638.3363.32825",
+            "wardrobe_master-50-58-236-WOA - err": "4638.3363.32826",
+            "wardrobe_master-50-58-236-WCH - err": "4638.3363.32827",
+            "wardrobe_master-50-58-236-WOS - err": "4638.3363.32828"
+        }
+    }
+}

@@ -1,0 +1,212 @@
+{
+    "id": "example:wardrobe_accessory",
+    "parameters": [
+        {
+            "key": "internalFrameWidth",
+            "type": "Decimal",
+            "unitType": "length",
+            "defaultValue": 800,
+            "labels": {
+                "en": "Width"
+            },
+            "visible": true
+        },
+        {
+            "key": "internalFrameDepth",
+            "type": "Decimal",
+            "unitType": "length",
+            "defaultValue": 400,
+            "labels": {
+                "en": "Frame Depth"
+            },
+            "visible": true
+        },
+        {
+            "key": "accessoryHeight",
+            "type": "Decimal",
+            "unitType": "length",
+            "labels": {
+                "en": "Height"
+            },
+            "visible": true
+        },
+        {
+            "key": "accessoryType",
+            "type": "String",
+            "labels": {
+                "en": "Accessory type"
+            },
+            "visible": true,
+            "validValues": [
+                "SHELF",
+                "CLOTHES_ROD",
+                "INTERNAL_DRAWER"
+            ]
+        },
+        {
+            "key": "material_wood",
+            "type": "Material",
+            "labels": {
+                "en": "Material"
+            },
+            "visible": true,
+            "validValues": [
+                "isdt:wood_oak",
+                "isdt:wood_chstnut",
+                "isdt:wood_oak_stained"
+            ]
+        },
+        {
+            "key": "material_metalparts",
+            "type": "Material",
+            "labels": {
+                "en": "Material"
+            },
+            "visible": true,
+            "validValues": [
+                "ral_color:7015",
+                "ral_color:9001",
+                "ral_color:9004"
+            ]
+        }
+    ],
+    "onUpdate": "
+        accessoryHeight = getData(accessoryType, 'dockProperties', 'height');
+        dock_minimumAbsolutePositionZ = getDataWithDefault(accessoryType, 'dockProperties', 'minimumAbsolutePositionZ', 0);
+        dock_minimumRelativePositionZ = getDataWithDefault(accessoryType, 'dockProperties', 'minimumRelativePositionZ', 0);
+        dock_minimumSpaceAbove = getDataWithDefault(accessoryType, 'dockProperties', 'minimumSpaceAbove', accessoryHeight);
+    ",
+    "previewGeometry": "
+        if (accessoryType == 'SHELF') {
+            shelfGap_front = 10;
+            AddPlainCube(Vector3f{internalFrameWidth, internalFrameDepth - shelfGap_front, 19});
+             SetObjSurface(material_wood);
+        }
+        else if (accessoryType == 'CLOTHES_ROD') {
+            telescopicRodRadius_large = 34 / 2;
+            AddPlainCube(Vector3f{internalFrameWidth, telescopicRodRadius_large * 2, telescopicRodRadius_large * 2});
+             MoveMatrixBy(Vector3f{0, internalFrameDepth / 2, 500 - telescopicRodRadius_large});
+             SetObjSurface(material_metalparts);
+        }
+        else if (accessoryType == 'INTERNAL_DRAWER') {
+            shelfGap_front = 10;
+            AddPlainCube(Vector3f{internalFrameWidth, internalFrameDepth - shelfGap_front, 19});
+             SetObjSurface(material_wood);
+        }
+    ",
+    "geometry": "
+        if (accessoryType == 'SHELF') {
+            shelfGap_front = 10;
+            AddCube(
+                Vector3f{internalFrameWidth, internalFrameDepth - shelfGap_front, 19},
+                uvRotation = 90
+            );
+             SetObjSurface(material_wood);
+        }
+        else if (accessoryType == 'CLOTHES_ROD') {
+            telescopicRodRadius_small = 30 / 2;
+            telescopicRodRadius_large = 34 / 2;
+            telescopicRodLength_large = ceil(internalFrameWidth / 320, 0) * 200;
+            socketRadius_small = 40 / 2;
+            socketRadius_large = 44 / 2;
+            socketHeight = 20;
+
+            BeginObjGroup();
+                AddCylinder(socketRadius_large, socketRadius_large, socketHeight, 16);
+                AddCylinder(telescopicRodRadius_large, telescopicRodRadius_large, telescopicRodLength_large, 16);
+                 MoveMatrixBy(Vector3f{0, 0, socketHeight});
+
+                AddCylinder(telescopicRodRadius_small, telescopicRodRadius_small, internalFrameWidth - 2 * socketHeight, 16);
+                 MoveMatrixBy(Vector3f{0, 0, socketHeight});
+
+                AddCylinder(socketRadius_small, socketRadius_small, socketHeight, 16);
+                 MoveMatrixBy(Vector3f{0, 0, internalFrameWidth - socketHeight});
+            EndObjGroup();
+             SetObjSurface(material_metalparts);
+             RotateMatrixBy(Vector3f{0, 1, 0}, Vector3f{0, 0, 0}, 90);
+             MoveMatrixBy(Vector3f{0, internalFrameDepth / 2, 500});
+        }
+        else if (accessoryType == 'INTERNAL_DRAWER') {
+            drawerWallThickness = 16;
+            drawerGap_wall = 10;
+            drawerGap_front = 10;
+            drawerGap_rear = 20;
+            drawerFloorThickness = 7;
+            drawerFrontThickness = 16;
+            drawerDepth = internalFrameDepth - drawerGap_rear - drawerGap_front;
+            drawerWidth = internalFrameWidth - 2 * drawerGap_wall;
+            drawerRearWallOffset = 12;
+            drawerFloorOffset = 15;
+
+            BeginObjGroup('INTERNAL DRAWER');
+
+                // add it with flipped Y and Z dimensions and rotate afterwards in order to have a proper UV direction
+                AddCube(
+                    Vector3f{drawerWallThickness, accessoryHeight, drawerDepth - drawerFrontThickness},
+                    material = self.material_wood
+                );
+                 RotateMatrixBy(Vector3f{1, 0, 0}, Vector3f{0, 0, 0}, 90);
+                 MoveMatrixBy(Vector3f{0, drawerDepth - drawerFrontThickness, 0});
+
+                Copy();
+                 RotateMatrixBy(Vector3f{0, 0, 1}, Vector3f{drawerWidth / 2, (drawerDepth - drawerFrontThickness) / 2, 0}, 180);
+
+                AddCube(
+                    Vector3f{drawerWidth, accessoryHeight, drawerFrontThickness},
+                    material = material_wood,
+                    uvRotation = 90
+                );
+                 RotateMatrixBy(Vector3f{1, 0, 0}, Vector3f{0, 0, 0}, 90);
+                 MoveMatrixBy(Vector3f{0, drawerDepth, 0});
+
+                AddPlainCube(Vector3f{drawerWidth - 2 * drawerWallThickness, drawerDepth - drawerFrontThickness - drawerRearWallOffset, drawerFloorThickness});
+                 SetObjSurface('ral_color:7022');
+                 MoveMatrixBy(Vector3f{drawerWallThickness, drawerRearWallOffset, drawerFloorOffset});
+
+                AddCube(
+                    Vector3f{drawerWidth - 2 * drawerWallThickness, accessoryHeight - drawerFloorOffset - drawerFloorThickness, drawerWallThickness},
+                    material = material_wood,
+                    uvRotation = 90
+                );
+                 RotateMatrixBy(Vector3f{1, 0, 0}, Vector3f{0, 0, 0}, 90);
+                 MoveMatrixBy(Vector3f{drawerWallThickness, drawerRearWallOffset + drawerWallThickness, drawerFloorOffset + drawerFloorThickness});
+
+            EndObjGroup('INTERNAL DRAWER');
+             MoveMatrixBy(Vector3f{drawerGap_wall, drawerGap_rear, 0});
+
+        }
+    ",
+    "childDockings": {
+        "points": [
+            {
+                "mask": "'FRAME_TO_ACCESSORY'",
+                "position": "{0, 0, 0}",
+                "rotation": "{0, 0, 0}",
+                "condition": "true"
+            }
+        ]
+    },
+    "articleNr": "'example:wardrobe_accessory'",
+    "data": {
+        "SHELF": {
+            "dockProperties": {
+                "height": 19,
+                "minimumRelativePositionZ": 120,
+                "minimumSpaceAbove": 120
+            }
+        },
+        "CLOTHES_ROD": {
+            "dockProperties": {
+                "height": 80,
+                "minimumAbsolutePositionZ": 800,
+                "minimumSpaceAbove": 600
+            }
+        },
+        "INTERNAL_DRAWER": {
+            "dockProperties": {
+                "height": 285,
+                "minimumSpaceAbove": 300
+            }
+        }
+    }
+}
