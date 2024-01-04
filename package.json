@@ -1,5 +1,5 @@
 {
-  "name": "roomle",
+  "name": "sample",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -20,8 +20,8 @@
   },
   "homepage": "https://gitlab.com/roomle/web/create-rubens-content#readme",
   "devDependencies": {
-    "@roomle/rubens-cli": "1.5.0",
     "@playwright/test": "1.20.2",
+    "@roomle/rubens-cli": "^1.8.0-alpha.2",
     "http-server": "13.0.1"
   }
 }

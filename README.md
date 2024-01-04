@@ -6,7 +6,7 @@ The whole magic relies on [npm init](https://docs.npmjs.com/cli/v7/commands/npm-
 
 What happens in background is, that when you run `npm init` the package is downloaded to your local machine and stored at your global npm path. After that the command `npm exec` is run. Some things you need to consider that everything works nicely:
 
-* package.json: set the field `bin`, `files` and `main` correctly. Take care that only the needed runtime dependencies are in `dependencies` and out the rest into `devDependencies`.
-* `.gitignore`: be aware that `.gitignore` removes things from the npm package. Therefore we named the default `.gitignore` `_gitignore` and rename it when we copy it over to the final project path.
+-   package.json: set the field `bin`, `files` and `main` correctly. Take care that only the needed runtime dependencies are in `dependencies` and out the rest into `devDependencies`.
+-   `.gitignore`: be aware that `.gitignore` removes things from the npm package. Therefore we named the default `.gitignore` `_gitignore` and rename it when we copy it over to the final project path.
 
 To test what will happen while `npm init` you just need to `node index.js` and see what's going on
