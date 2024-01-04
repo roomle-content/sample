@@ -1,5 +1,16 @@
 {
     "id": "example:wardrobe_master",
+    "label": "
+        'Wardrobe Frame ' |
+        string(width / 10, 0) |
+        'x' |
+        string(depth / 10, 0) |
+        'x' |
+        string(height / 10, 0) |
+        ' (' |
+        getData('translations', material, 'en') |
+        ')'
+    ",
     "parameters": [
         {
             "key": "width",
@@ -277,8 +288,8 @@
                     return true;
                 ",
                 "assignmentsOnUpdate": {
-                    "internalFrameWidth": "xFromVector(internalBoxSize)",
-                    "internalFrameDepth": "yFromVector(internalBoxSize)"
+                    "internalFrameDepth": "yFromVector(internalBoxSize)",
+                    "internalFrameWidth": "xFromVector(internalBoxSize)"
                 },
                 "assignmentScripts": {
                     "onDock": "
@@ -326,17 +337,6 @@
         getData('colorCode', material);
 
         articleNr = getDataWithDefault('articleNumbers', internal_articleNumber, 'UNDEFINED ' | internal_articleNumber)
-    ",
-    "label": "
-        'Wardrobe Frame ' |
-        string(width / 10, 0) |
-        'x' |
-        string(depth / 10, 0) |
-        'x' |
-        string(height / 10, 0) |
-        ' (' |
-        getData('translations', material, 'en') |
-        ')'
     ",
     "data": {
         "colorCode": {

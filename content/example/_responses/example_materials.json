@@ -79,15 +79,14 @@
                 "transmission": 0,
                 "transmissionIOR": 0,
                 "roughness": 1,
-                "metallic": 0,
+                "metallic": 1,
                 "basecolor": {
-                    "r": 1,
-                    "g": 1,
-                    "b": 1
+                    "r": 0.9098039215686274,
+                    "g": 0.9098039215686274,
+                    "b": 0.9098039215686274
                 },
                 "doubleSided": false
             },
-            "properties": {},
             "textures": [
                 38090
             ],
@@ -100,7 +99,7 @@
             "hidden": false,
             "visibilityStatus": 0,
             "active": true,
-            "updated": "2023-05-24T14:14:01.000Z",
+            "updated": "2023-05-31T12:49:33.000Z",
             "created": "2023-05-24T14:14:01.000Z"
         },
         {
@@ -208,6 +207,6 @@
     ],
     "meta": {
         "total": 6,
-        "serverTime": "2023-05-25T05:53:33.093Z"
+        "serverTime": "2024-01-04T12:03:22.864Z"
     }
 }

@@ -4,30 +4,30 @@
         {
             "key": "internalFrameWidth",
             "type": "Decimal",
-            "unitType": "length",
             "defaultValue": 800,
             "labels": {
                 "en": "Width"
             },
+            "unitType": "length",
             "visible": true
         },
         {
             "key": "internalFrameDepth",
             "type": "Decimal",
-            "unitType": "length",
             "defaultValue": 400,
             "labels": {
                 "en": "Frame Depth"
             },
+            "unitType": "length",
             "visible": true
         },
         {
             "key": "accessoryHeight",
             "type": "Decimal",
-            "unitType": "length",
             "labels": {
                 "en": "Height"
             },
+            "unitType": "length",
             "visible": true
         },
         {
